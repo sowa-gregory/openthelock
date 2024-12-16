@@ -91,21 +91,6 @@ def flipFlop(data):
 def bleak(data):
     return ''.join([c*2 for c in data])
 
-def check_response(self, buf:bytes)->bool:
-        if not buf:
-            return False
-        if len(buf)!= 16:
-            return False
-        service_uuid = self.get_service_uuid()
-        characteristic_uuid = self.get_characteristic_uuid()
-        data = MD5.md5(service_uuid.lower()+characteristic_uuid.lower())
-        data = binascii.unhexlify(data)
-        cipher = cryptolib.aes(data, 1)
-        response = cipher.decrypt(self.challenge)
-        if response==buf:
-            return True
-        return False
-
 def bleak(data):
     return data[1:3]
 
